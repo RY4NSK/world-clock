@@ -2,7 +2,18 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button } from 'antd';
-import { ClockCircleOutlined, PlusOutlined, MinusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+
+interface Clock { // Type defining what a clock consists of.
+  city: string,
+  time: string
+}
+
+let clocks: Clock[] = [
+  {city: "London", time: "12:21"},
+  {city: "Vancouver", time: "5:21"},
+  {city: "Tokyo", time: "11:21"}
+]
 
 const App: React.FC = () => {
 
@@ -20,27 +31,20 @@ const App: React.FC = () => {
             Sydney 12:21
           </h2>
         </div>
-        <div >
+        <div>
           <Button type="ghost" icon={<ClockCircleOutlined />}></Button>
         </div>
       </div>
       <div style={{ gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 3, gridRowEnd: 4 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* https://dev.to/ibrahima92/15-must-know-javascript-array-methods-in-2020-1kd8 */}
+        {clocks.map(clock => <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div>
-            London 1:21
+            {clock.city} {clock.time}
           </div>
           <div>
             <Button type="ghost" icon={<ClockCircleOutlined />}></Button>
           </div>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            London 1:21
-          </div>
-          <div>
-            <Button type="ghost" icon={<ClockCircleOutlined />}></Button>
-          </div>
-        </div>
+        </div>)}
         {
           isSettings ? <>
             <div style={{ height: 10 }} />
