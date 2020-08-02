@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import "@blueprintjs/icons/lib/css/blueprint-icons.css"
+import "@blueprintjs/core/lib/css/blueprint.css"
+import "@blueprintjs/timezone/lib/css/blueprint-timezone.css"
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
