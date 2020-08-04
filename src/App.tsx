@@ -44,16 +44,20 @@ const App: React.FC = () => {
       return;
     }
 
-    const items = reorder(
-      clocks,
-      result.source.index,
-      result.destination.index
-    );
-
-    setClocks(items);
+    if (result.destination.droppableId === "delete") {
+      setClocks(clocks.filter((tz, i) => i !== result.source.index))
+    } else {
+      const items = reorder(
+        clocks,
+        result.source.index,
+        result.destination.index
+      );
+  
+      setClocks(items);
+    }
   }
 
-  return (
+  return (<div>
     <DragDropContext onDragEnd={onDragEnd}>
       <div style={{ display: 'grid', gridTemplateColumns: '10% 15% auto 15% 10%', gridTemplateRows: '25% 15% auto 10%', height: '100vh' }}>
         <div style={{ gridColumnStart: 3, gridColumnEnd: 4, gridRowStart: 2, gridRowEnd: 3 }}>
@@ -119,7 +123,16 @@ const App: React.FC = () => {
               <div style={{ height: 10 }} />
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <TimezonePicker onChange={handleTimezoneChange} />
-                <Button type="ghost" icon={<DeleteOutlined />}></Button>
+                <Droppable droppableId="delete">
+                  {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                    <div
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      <Button type="ghost" icon={<DeleteOutlined />}></Button>
+                    </div>
+                  )}
+                </Droppable>
               </div>
             </> : null
           }
@@ -130,7 +143,7 @@ const App: React.FC = () => {
         </div>
       </div>
     </DragDropContext>
-  );
+  </div>);
 }
 
 export default App;
